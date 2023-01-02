@@ -38,7 +38,7 @@
 
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="email">E-Mail Address</label>
-									<input id="email" type="email" class="form-control" name="email" value="" required>
+									<input id="mail" type="email" class="form-control" name="email" value="" required>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -46,7 +46,7 @@
 
 								<div class="mb-3">
 									<label class="mb-2 text-muted" for="password">Password</label>
-									<input id="password" type="password" class="form-control" name="password" required>
+									<input id="passwrd" type="password" class="form-control" name="password" required>
 								    <div class="invalid-feedback">
 								    	Password is required
 							    	</div>
@@ -57,7 +57,7 @@
 								</p>
 
 								<div class="align-items-center d-flex">
-									<button type="submit" class="btn btn-primary ms-auto">
+									<button type="submit" id="sign-up-btn" class="btn btn-primary ms-auto">
 										Register	
 									</button>
 								</div>
@@ -77,6 +77,32 @@
 		</div>
 	</section>
 
-	<script src="js/login.js"></script>
+	<script>
+		let signUpSubmitButton = document.querySelector("#sign-up-btn");
+		//select user information
+		let name = document.getElementById("name");
+		let email = document.getElementById("mail");
+		let password = document.getElementById("passwrd");
+
+		signUpSubmitButton.addEventListener("click", async () =>{
+			let user = {
+				name: name.value,
+				email: email.value,
+				password: password.value,
+			};
+			console.log(user);
+			let request = await fetch("http://localhost:3300/api/v1/signup" , {
+				method: "POST",
+				headers:{
+					"Content-Type" : "application/json",
+				},
+				crossDomain:true,
+				body:JSON.stringify(user),
+			});
+			let message = await request.text();
+			console.log(message);
+			alert(message);
+		});
+	</script>
 </body>
 </html>

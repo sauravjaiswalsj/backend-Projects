@@ -1,5 +1,5 @@
 const express = require('express');
-
+const routes = require('./routes/authRoutes');
 const app = express();
 
 const PORT = 3300;
@@ -12,6 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //use the html
 app.use(express.static('public'));
+
+//Name the route
+app.use("/api/v1/",routes);
 
 app.listen(PORT, () =>{
     console.log(`Server listenning on Port: ${PORT}`);
