@@ -15,8 +15,12 @@ const validateName = (name)=>{
                          + "(?=.*[a-z])(?=.*[A-Z])"
                          + "(?=.*[@#$%^&+=])"
                          + "(?=\\S+$).{8,20}$");
+
+  const passwordRegexCheck = new RegExp("^(?=.*[0-9])"
+                         + "(?=.*[a-z])(?=.*[A-Z])"
+                         + "(?=\\S+$).{8,20}$");                        
   
-    return passwordRegex.test(password);
+    return passwordRegexCheck.test(password);
   }
   
   module.exports = {

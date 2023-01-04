@@ -9,7 +9,7 @@ const PORT = 3300;
 // accept json from incoming request
 app.use(express.json());
 // accept body
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.urlencoded({ extended: true }));
 //use the html
 app.use(express.static('public'));
 
