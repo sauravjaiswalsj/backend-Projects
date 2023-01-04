@@ -1,8 +1,9 @@
 const express = require('express');
 const routes = require('./routes/authRoutes');
 const app = express();
-
-const PORT = 3300;
+const dotenv = require('dotenv');
+dotenv.config();
+const PORT = process.env.port;
 
 //Middleware
 // This parses the incoming request to json format and hence, localhost is taking infite time to respond.
