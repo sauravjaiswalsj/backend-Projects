@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const createDb = require('../config/db');
 const User = require('../models/userModels');
-
+const nodemailer = require('nodemailer');
 const { validateEmail, validateName, validatePassword } = require('../utils/Validator');
 
 // Sync all defined models to the DB
@@ -88,4 +88,60 @@ router.post("/signin", async (req, res) => {
     }
 });
 
+router.post("/forgotPassword", async(req,res)=>{
+    try{
+        const {email} = req.body;
+        if (email.length === 0) {
+            return res.status(400).send("Error: Please enter your email");
+        }
+        const userExist = await User.findOne({
+            where:{
+                email:email
+            }
+        });
+        if(!userExist){
+            return res.status(403).send(`User does not exist`);
+        }
+        if(userExist.email !== email){
+            return res.status(403).send(`Please provide the registed Email Address.`);
+        }
+
+        // User Send Email + User token;
+        let randomNum = (Math.floor(Math.random() * 10000)) + userExist.name;
+
+        const token = await bcrypt.hash(randomNum, 5);
+
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.ethereal.email',
+            port: 587,
+            auth: {
+                user: process.env.NodeMailerEmail,
+                pass: process.env.NodeMailerPassword,
+            }
+        });
+
+        const emailStruct = {
+            from: `"Auth System" <${process.env.NodeMailerEmail}>`, // sender address
+            to : email,
+            subject: "Reset Password.", // Subject line
+            html : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="https://127.0.0.1:${process.env.port}/restPassword.html?token=${token}"> reset your password. </a></p>`,
+            text : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="https://127.0.0.1:${process.env.port}/restPassword.html?token=${token}"> reset your password. </a></p>`,
+        };
+        
+        transporter.sendMail(emailStruct, (error, info) => {
+            if (error) {
+                console.log(error);
+                return res.status(400).send(`Can not sent the email at this moment ${error}`)
+            } else {
+                console.log(`Email has been sent:- ${info.response}`);
+            }
+        });
+        return res.status(200).send("Email has been sent.");
+    }catch(err){
+        console.log(err);
+        return res.status(400).send(`Error: ${err.message}`);
+    }
+});
 module.exports = router;
+
+
