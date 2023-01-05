@@ -8,23 +8,22 @@ An authentication system build using express js consists of a user login and reg
 
 We use Expressjs a nodejs framework for the backend development which is connected to a Sql db where the user information is shared.
 
-### Existing Solution
+### Solution
 
-1. Create a register API for the user to register to the application.
-2. User information is validated like email and password.
-3. User password is verified and then stored in the sql db.
-4. Create a Login API for the user to login to the application.
-5. User information for the login is verified to check if the provided password is correct or not.
-6. If information provided is correct then user can login to the application.
-
-### TODO
+- [x] Create a register API for the user to register to the application.
+- [x] User information is validated like email and password.
+- [x]  User password is verified and then stored in the sql db.
+- [x]  Create a Login API for the user to login to the application.
+- [x]  User information for the login is verified to check if the provided password is correct or not.
+- [x]  If information provided is correct then user can login to the application.
 
 #### Forgot Password API
 
 1. To have a forgot password API.
-2. Check if the user exist agains the email provided.
 
 #### Add Session Layer
 
 1. Add Token based authentication.
 2. Add login use google and facebook.
+
+![Auth App Architecture](https://user-images.githubusercontent.com/25124428/210822811-c396fd4d-c1b9-4d37-bc89-b082a571d782.jpeg)
