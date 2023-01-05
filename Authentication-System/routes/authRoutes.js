@@ -110,6 +110,8 @@ router.post("/forgotPassword", async(req,res)=>{
         let randomNum = (Math.floor(Math.random() * 10000)) + userExist.name;
 
         const token = await bcrypt.hash(randomNum, 5);
+        await User.update({token:token},{where:{email:email}});
+
         const transporter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
             port: 587,
@@ -141,6 +143,37 @@ router.post("/forgotPassword", async(req,res)=>{
         return res.status(400).send(`Error: ${err.message}`);
     }
 });
+
+router.post("/resetPassword",async(req,res)=>{
+    try{
+        const {password} = req.body;
+        const paramToken = req.query.token;
+
+        const userExist = await User.findOne({
+            where:{
+                token:paramToken
+            }
+        });
+
+        if(!userExist){
+            return res.status(403).send(`Token is expired. Please reset password again`);
+        }
+        
+        const newPassword = await bcrypt.hash(password,10);
+
+        await User.update({password:newPassword, token:''},{
+            where:{
+                token:paramToken
+            }
+        });
+        res.status(200).send(`${userExist.name}, password has been successfully changes `);
+        res.sendFile('/public/index.html');
+    }catch(err){
+        console.log(err);
+        return res.status(400).send(`Error: ${err.message}`);
+    }
+});
+
 module.exports = router;
 
 

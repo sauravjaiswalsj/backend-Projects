@@ -13,6 +13,10 @@ User.init({
     password:{
         type:DataTypes.STRING,
     },
+    token:{
+        type:DataTypes.STRING,
+        defaultValue: ''
+    }
 },
 {sequelize, modelName: "User"}
 // We need to pass the sequelize instance (mandatory) 
