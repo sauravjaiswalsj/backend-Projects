@@ -110,7 +110,6 @@ router.post("/forgotPassword", async(req,res)=>{
         let randomNum = (Math.floor(Math.random() * 10000)) + userExist.name;
 
         const token = await bcrypt.hash(randomNum, 5);
-
         const transporter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
             port: 587,
@@ -124,8 +123,8 @@ router.post("/forgotPassword", async(req,res)=>{
             from: `"Auth System" <${process.env.NodeMailerEmail}>`, // sender address
             to : email,
             subject: "Reset Password.", // Subject line
-            html : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="https://127.0.0.1:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
-            text : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="https://127.0.0.1:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
+            html : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
+            text : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
         };
         
         transporter.sendMail(emailStruct, (error, info) => {
