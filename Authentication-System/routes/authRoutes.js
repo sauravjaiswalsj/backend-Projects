@@ -147,8 +147,9 @@ router.post("/forgotPassword", async(req,res)=>{
 router.post("/resetPassword",async(req,res)=>{
     try{
         const {password} = req.body;
-        const paramToken = req.query.token;
+        const {paramToken} = req.query.token;
 
+        console.log(req);
         const userExist = await User.findOne({
             where:{
                 token:paramToken
