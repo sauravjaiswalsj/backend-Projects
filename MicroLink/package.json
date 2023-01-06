@@ -1,5 +1,5 @@
 {
-  "name": "urlshortner",
+  "name": "microlink",
   "version": "1.0.0",
   "description": "Make your URL tinier.",
   "main": "src/app.js",
