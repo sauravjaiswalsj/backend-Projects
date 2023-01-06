@@ -1,5 +1,5 @@
 {
-  "name": "authentication-system",
+  "name": "authenticationsystem",
   "version": "1.0.0",
   "description": "Authentication System",
   "main": "index.js",
