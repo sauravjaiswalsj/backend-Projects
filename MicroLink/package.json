@@ -1,0 +1,35 @@
+{
+  "name": "urlshortner",
+  "version": "1.0.0",
+  "description": "Make your URL tinier.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sauravjaiswalsj/backend-Projects.git"
+  },
+  "keywords": [
+    "URL",
+    "shortner",
+    "tiny",
+    "url",
+    "mini",
+    "url"
+  ],
+  "author": "sauravjaiswalsj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sauravjaiswalsj/backend-Projects/issues"
+  },
+  "homepage": "https://github.com/sauravjaiswalsj/backend-Projects#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nanoid": "^4.0.0",
+    "path": "^0.12.7",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
+  }
+}
