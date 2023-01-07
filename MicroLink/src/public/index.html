@@ -116,6 +116,7 @@
             color: red
         }
 
+        input[type=url],
         input[type=text],
         textarea {
             vertical-align: middle;
@@ -285,6 +286,7 @@
             margin: 0 auto
         }
 
+        #formurl input[type=url],
         #formurl input[type=text] {
             display: table-cell;
             width: 100%;
@@ -472,6 +474,7 @@
             box-shadow: 0 1px 4px #ccc
         }
 
+        input[type=url],
         input[type=email],
         input[type=text],
         textarea {
@@ -675,7 +678,6 @@
             }
         }
     </style>
-    <link rel="shortcut icon" href="favicon.ico">
     <meta property="og:title" content="MicroLink - URL Shortener">
     <meta property="og:type" content="website">
 </head>
@@ -688,11 +690,13 @@
     <main>
         <section id="urlbox">
             <h1>Paste the URL to be shortened</h1>
+            <form id="url-form">
             <div id="formurl">
-                <input type="text" name="u" id="MicroURl" placeholder="Enter the link here">
+                <input type="url" name="url" class="url-input" id="mini-url-data" placeholder="Enter the link here">
                 <div id="formbutton">
                     <input type="submit" id="url-short-btn" value="Shorten URL">
                 </div>
+            </form>
             </div>
             <p class="boxtextcenter">MicroLink is a free tool to shorten a URL or reduce a link<br>Use our URL Shortener
                 to create a shortened link making it easy to remember</p>
@@ -720,10 +724,10 @@
                 <li><a href="https://github.com/sauravjaiswalsj/">MicroLink</a></li>
                 <li>|</li>
                 <!-- <li><a href="url-click-counter.php">URL Click Counter</a></li>
-<li>|</li>
-<li><a href="report-malicious-url.php">Report Malicious URL</a></li>
-<li>|</li>
-<li><a href="terms-of-service.php">Terms of Service</a></li> -->
+                <li>|</li>
+                <li><a href="report-malicious-url.php">Report Malicious URL</a></li>
+                <li>|</li>
+                <li><a href="terms-of-service.php">Terms of Service</a></li> -->
                 <li>|</li>
                 <li><a href="https://www.linkedin.com/in/sauravjaiswalsj/">Linkedin</a></li>
                 <li>|</li>
@@ -731,5 +735,6 @@
             </ul>
         </div>
     </footer>
-
+    <script src ="./javascript/script.js"></script>
+</body>
 </html>
