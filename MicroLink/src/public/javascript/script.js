@@ -1,5 +1,5 @@
 const form = document.querySelector('#url-form');
-
+const result = document.querySelector('. result-section')
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const Urldata = document.querySelector(".url-input");
@@ -11,7 +11,7 @@ form.addEventListener('submit', (event) => {
       'Accept':'application/json',
       'Content-Type':'application/json'
     },
-    body: JSON.Stringify({longUrl: Urldata.value;})
+    body: JSON.Stringify({longUrl: Urldata.value,})
   })
   .then(response=>{
     if(!response.ok){
@@ -30,6 +30,4 @@ form.addEventListener('submit', (event) => {
     </div>`
   )})
 .catch(console.error)
-
-
-});
+});  
