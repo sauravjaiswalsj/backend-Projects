@@ -12,7 +12,7 @@ const addBook = async(req,res)=>{
         });
         console.log(isExist)
         if(isExist.length !== 0){
-            return res.status(200).send(`Book : ${title} already exist`);
+            return res.status(302).send(`Book : ${title} already exist`);
         }
         try{
             await Book.create({title,author});
