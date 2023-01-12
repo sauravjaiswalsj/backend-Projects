@@ -13,7 +13,7 @@ Functionalities: A librarian can do the following things with this Library Manag
 
 ## Architecture
 
-![Libray App Architecture] (<https://user-images.githubusercontent.com/25124428/211995874-14296e8b-42a1-4afb-94df-0c56501d7a80.png>)
+![Library App Architecture](https://user-images.githubusercontent.com/25124428/211995874-14296e8b-42a1-4afb-94df-0c56501d7a80.png)
 
 ## Design Docs
 
