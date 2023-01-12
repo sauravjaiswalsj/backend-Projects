@@ -1,16 +1,20 @@
 const { update } = require('../models/BookModel');
 const Book = require('../models/BookModel');
 
+/*
+    @Params: req, res
+    @returns: returns the update status
+    @Method: Updates the Book title.
+*/
 const updateUser = async(req,res) =>{
     try{
         const {title,id}= req.body;
-        const removedBookFlag = await Book.update({title:title},{
+        const updateBookFlag = await Book.update({title:title},{
             where:{
                 id:id
             }
         });
-        console.log(removedBookFlag);
-        if(removedBookFlag.length === 0){
+        if(updateBookFlag.length === 0){
             return res.status(500).send('No such book with that author available.');
         }
         res.status(200).send(`Removed the book ${title}.`);

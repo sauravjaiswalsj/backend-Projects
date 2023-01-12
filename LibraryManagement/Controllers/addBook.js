@@ -1,5 +1,10 @@
 const Book = require('../models/BookModel');
 
+/*
+    @Params: req, res
+    @returns: returns the status of the book after adding it to dir
+    @Method: Add the Book details provided in the req.
+*/
 const addBook = async(req,res)=>{
     try{
         const {title,author} = req.body;

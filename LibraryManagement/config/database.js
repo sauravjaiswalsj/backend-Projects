@@ -5,6 +5,7 @@ const user = process.env.user;
 
 const password = process.env.password;
 
+// Create sequelize instance to connect to db
 const createDb = new Sequelize('bookDb',user,password,{
     dialect : 'sqlite',
     host: "./config/db.sqlite"
@@ -12,6 +13,7 @@ const createDb = new Sequelize('bookDb',user,password,{
 
 const sequelize = createDb;
 
+//authenticate the db
 sequelize.authenticate()
     .then(()=>{
         console.log(`Authenticated to DB successfully.`);

@@ -12,6 +12,8 @@ const updateUser = require('../Controllers/updateUser');
 createDb.sync().then(()=>{
     console.log(`Db is running`);
 });
+
+// Creates the routes
 router.get('/',home);
 
 router.post('/add',addBook);
@@ -22,6 +24,5 @@ router.delete('/remove',remove);
 
 router.put('/update', updateUser);
 
-//router.get('/searchBook',searchBook);
 
 module.exports = router;

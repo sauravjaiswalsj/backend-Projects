@@ -1,5 +1,10 @@
 const Book = require('../models/BookModel');
 
+/*
+    @Params: req, res
+    @returns: returns the removed book status
+    @Method: removes the Book from the db..
+*/
 const remove = async(req,res) =>{
     try{
         const {title,author}= req.body;

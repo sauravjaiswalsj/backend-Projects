@@ -1,6 +1,11 @@
 const Book = require('../models/BookModel');
 const {Op} = require('sequelize');
 
+/*
+    @Params: req, res
+    @returns: returns the books.
+    @Method: finds all the Book either by title or by author.
+*/
 const searchBook = async(req,res) =>{
     try{
         const val = req.query.value;
