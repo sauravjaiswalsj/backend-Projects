@@ -1,0 +1,31 @@
+{
+  "name": "whatsappsearchbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sauravjaiswalsj/backend-Projects.git"
+  },
+  "author": "sauravjaiswalsj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sauravjaiswalsj/backend-Projects/issues"
+  },
+  "homepage": "https://github.com/sauravjaiswalsj/backend-Projects#readme",
+  "dependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "googleapis": "^110.0.0",
+    "twilio": "^3.84.1"
+  }
+}
