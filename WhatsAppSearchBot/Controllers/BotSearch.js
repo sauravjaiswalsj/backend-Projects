@@ -1,5 +1,4 @@
 const {google} = require('googleapis');
-const customsearchAPI = require('@googleapis/customsearch');
 const twilio = require('twilio');
 
 require('dotenv').config();
@@ -44,7 +43,7 @@ class BotSearch {
 
             res.set('Content-Type', 'text/xml');
 
-        return res.status(200).send(twiml.toString());
+            return res.status(200).send(twiml.toString());
         } catch (error) {
             return next(error);
         }
