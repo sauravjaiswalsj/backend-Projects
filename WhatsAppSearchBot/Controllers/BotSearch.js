@@ -9,10 +9,8 @@ const accountSid = process.env.ACCOUNT_SID;
 const TwilloAuthToken = process.env.AUTH_TOKEN;
 const googleApiKey = process.env.SEARCH_API_KEY;
 
-console.log(process.env.ACCOUNT_SID);
-  
 twilio(accountSid, TwilloAuthToken);
-const MessagingResponse = twilio.twiml;
+const {MessagingResponse} = twilio.twiml;
 const customsearch = google.customsearch('v1');
 
 /**
@@ -32,17 +30,19 @@ class BotSearch {
     static async googleSearch(req,res,next){
         const twiml = new MessagingResponse();
         const userQuery = req.body.Body;
+        console.log(userQuery);
         const options = { cx,userQuery, auth: googleApiKey };
 
         try{
             const result = await customsearch.cse.list(options);
-            const firstSearch = result.data.items[10];
-            const searchData = firstResult.snippet;
-        const link = firstResult.link;
+            console.log(result);
+            const firstSearchResult = result.data.items[0];
+            const searchData = firstSearchResult.snippet;
+            const link = firstSearchResult.link;
+            console.log(link);
+            twiml.message(`${searchData} ${link}`);
 
-        twiml.message(`${searchData} ${link}`);
-
-        res.set('Content-Type', 'text/xml');
+            res.set('Content-Type', 'text/xml');
 
         return res.status(200).send(twiml.toString());
         } catch (error) {
