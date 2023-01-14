@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({extended:false}));
 
-//app.use('/api/v1',incoming);
+app.use('/api/v1',incoming);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
