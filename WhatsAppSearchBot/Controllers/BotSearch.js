@@ -1,4 +1,5 @@
-const googleapis = require('googleapis');
+const {google} = require('googleapis');
+const customsearchAPI = require('@googleapis/customsearch');
 const twilio = require('twilio');
 
 require('dotenv').config();
@@ -12,7 +13,7 @@ console.log(process.env.ACCOUNT_SID);
   
 twilio(accountSid, TwilloAuthToken);
 const MessagingResponse = twilio.twiml;
-const customsearch = googleapis.customsearch('v1');
+const customsearch = google.customsearch('v1');
 
 /**
 * @class BotSearch
