@@ -1,6 +1,6 @@
 //import dependencies
 const express = require('express');
-const router = require('');
+const store = require('./route/Store');
 require('dotenv').config();
 
 //Define express app
@@ -13,6 +13,6 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use('/api/v1/',);
+app.use('/api/v1/',store);
 
 app.listen(PORT, ()=>console.log(`Server is listenning on http://localhost:${PORT}`));
