@@ -9,7 +9,6 @@ const addBook = async(req,res)=>{
     try{
         const {name,author,genre,dateOfRelease,bookImage,rating,price} = req.body;
         const book = {name,author,genre,dateOfRelease,bookImage,rating,price};
-        book.
         const isExist = await BookStore.findAll({
             where:{
                 name:name,
