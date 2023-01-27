@@ -1,0 +1,5 @@
+additionalRepositories:
+  - url: https://github.com/sauravjaiswalsj/backend-Projects/
+    # checkoutLocation is optional and relative to /workspaces.
+    # by default the location defaults to the repository name.
+    checkoutLocation: backend-repo
