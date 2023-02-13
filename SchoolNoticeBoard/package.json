@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "name": "schoolnoticeboard",
+  "description": "We need to create an API for our school notice board",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sauravjaiswalsj/backend-Projects.git"
+  },
+  "keywords": [
+    "Node",
+    "App"
+  ],
+  "author": "sauravjaiswalsj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sauravjaiswalsj/backend-Projects/issues"
+  },
+  "homepage": "https://github.com/sauravjaiswalsj/backend-Projects#readme"
+}
