@@ -73,7 +73,7 @@ router.post("/signin", async (req, res) => {
 
         if (!userExist)
             return res.status(403).send(`User does not exist`);
-            
+
         //* hashes the entered password and then compares it to the hashed password stored in the database
         const passMatch = await bcrypt.compare(password, userExist.password);
 
@@ -88,29 +88,29 @@ router.post("/signin", async (req, res) => {
     }
 });
 
-router.post("/forgotPassword", async(req,res)=>{
-    try{
-        const {email} = req.body;
+router.post("/forgotPassword", async (req, res) => {
+    try {
+        const { email } = req.body;
         if (email.length === 0) {
             return res.status(400).send("Error: Please enter your email");
         }
         const userExist = await User.findOne({
-            where:{
-                email:email
+            where: {
+                email: email
             }
         });
-        if(!userExist){
+        if (!userExist) {
             return res.status(403).send(`User does not exist`);
         }
-        if(userExist.email !== email){
-            return res.status(403).send(`Please provide the registed Email Address.`);
+        if (userExist.email !== email) {
+            return res.status(403).send(`Please provide the registered Email Address.`);
         }
 
         // User Send Email + User token;
         let randomNum = (Math.floor(Math.random() * 10000)) + userExist.name;
 
         const token = await bcrypt.hash(randomNum, 5);
-        await User.update({token:token},{where:{email:email}});
+        await User.update({ token: token }, { where: { email: email } });
 
         const transporter = nodemailer.createTransport({
             host: 'smtp.ethereal.email',
@@ -123,12 +123,12 @@ router.post("/forgotPassword", async(req,res)=>{
 
         const emailStruct = {
             from: `"Auth System" <${process.env.NodeMailerEmail}>`, // sender address
-            to : email,
+            to: email,
             subject: "Reset Password.", // Subject line
-            html : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
-            text : `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
+            html: `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
+            text: `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
         };
-        
+
         transporter.sendMail(emailStruct, (error, info) => {
             if (error) {
                 console.log(error);
@@ -138,38 +138,38 @@ router.post("/forgotPassword", async(req,res)=>{
             }
         });
         return res.status(200).send("Email has been sent.");
-    }catch(err){
+    } catch (err) {
         console.log(err);
         return res.status(400).send(`Error: ${err.message}`);
     }
 });
 
-router.post("/resetPassword",async(req,res)=>{
-    try{
-        const {password} = req.body;
-        const {paramToken} = req.query.token;
+router.post("/resetPassword", async (req, res) => {
+    try {
+        const { password } = req.body;
+        const { paramToken } = req.query.token;
 
         console.log(req);
         const userExist = await User.findOne({
-            where:{
-                token:paramToken
+            where: {
+                token: paramToken
             }
         });
 
-        if(!userExist){
+        if (!userExist) {
             return res.status(403).send(`Token is expired. Please reset password again`);
         }
-        
-        const newPassword = await bcrypt.hash(password,10);
 
-        await User.update({password:newPassword, token:''},{
-            where:{
-                token:paramToken
+        const newPassword = await bcrypt.hash(password, 10);
+
+        await User.update({ password: newPassword, token: '' }, {
+            where: {
+                token: paramToken
             }
         });
         res.status(200).send(`${userExist.name}, password has been successfully changes `);
         res.sendFile('/public/index.html');
-    }catch(err){
+    } catch (err) {
         console.log(err);
         return res.status(400).send(`Error: ${err.message}`);
     }
