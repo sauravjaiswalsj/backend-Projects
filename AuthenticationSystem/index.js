@@ -5,6 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.port;
+const sequelize = require('./config/db');
 
 //Middleware
 // This parses the incoming request to json format and hence, localhost is taking infite time to respond.
@@ -18,8 +19,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 //Name the route
-app.use("/api/v1/",routes);
+app.use("/api/v1/", routes);
 
-app.listen(PORT, () =>{
+//Check the connection with the database is correct or not.
+try {
+    sequelize.authenticate()
+        .then(() => {
+            console.log(`Authenticated to DB successfully.`);
+        })
+        .catch(err => {
+            console.log(`Error occured during db connection: ${err}`);
+        });
+} catch (error) {
+    console.error('Unable to connect to the database: ', error);
+};
+
+app.listen(PORT, () => {
     console.log(`Server listenning on Port: ${PORT}`);
 }); 
