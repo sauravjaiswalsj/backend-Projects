@@ -26,7 +26,7 @@ Sample Response Body Format:
 ``` JSON
 [
     {
-        "id": "639d2eeb7a3234daa2325fb8"
+        "id": "639d2eeb7a3234daa2325fb8",
         "name": "The Alchemist",
         "author": "Paulo Coelho",
         "genre": "Fiction",
@@ -81,7 +81,7 @@ Sample Response Body Format:
 
 ``` JSON
 {
-    "id": "639d2eeb7a3234daa2325fb8"
+    "id": "639d2eeb7a3234daa2325fb8",
     "name": "The Alchemist",
     "author": "Paulo Coelho",
     "genre": "Fiction",
