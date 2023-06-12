@@ -5,29 +5,39 @@ const BookStore = require('../models/BookStore');
     @returns: returns the status of the book after adding it to dir
     @Method: Add the Book details provided in the req.
 */
-const addBook = async(req,res)=>{
-    try{
-        const {name,author,genre,dateOfRelease,bookImage,rating,price} = req.body;
-        const book = {name,author,genre,dateOfRelease,bookImage,rating,price};
-        const isExist = await BookStore.findAll({
-            where:{
-                name:name,
-                author:author,
-                dateOfRelease:dateOfRelease
+const addBook = async (req, res) => {
+    console.log(`Added Book to db`);
+    try {
+        const { name, author, genre, dateOfRelease, bookImage, rating, price } = req.body;
+
+        if (!name || !author || !genre || !dateOfRelease || !rating || !price) {
+            return res.status(400).send('Missing Params');
+        }
+        const isBookAvailable = await BookStore.findOne({
+            where: {
+                name: name,
             }
         });
-        if(isExist.length !== 0){
-            return res.status(302).send(`Book:${name} already exist.`);
+
+        if (isBookAvailable) {
+            return res.status(302).send('Already present', JSON.stringify(isBookAvailable));
         }
-        try{
-            const response = await BookStore.create(book);
-            return res.status(201).send(`${response} created;`)
-        }catch(err){
+        try {
+
+            const uid = Math.floor(Math.random() * 100) + genre + Date.now();
+
+            const book = { id: uid, name, author, genre, dateOfRelease, bookImage, rating, price };
+
+            await BookStore.create(book);
+
+            return res.status(201).send(JSON.stringify(book))
+        }
+        catch (err) {
             console.log(`Unable to add Books: ${err}`);
             res.status(500).send('Unable to add Books');
         }
-    }catch(err){
-        console.log(`Error: ${err}`);
+    } catch (err) {
+        console.error(`Error: ${err}`);
     }
 };
 
