@@ -113,25 +113,26 @@ router.post("/forgotPassword", async (req, res) => {
         await User.update({ token: token }, { where: { email: email } });
 
         const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
+            host: 'smtp-relay.sendinblue.com',
             port: 587,
+            secure: false,
             auth: {
-                user: process.env.NodeMailerEmail,
-                pass: process.env.NodeMailerPassword,
+                user: process.env.SendBlueEmail,
+                pass: process.env.SendBluePassword,
             }
         });
-
+        const resetEmail = `http://localhost:${process.env.port}/resetPassword.html?token=${token}`
         const emailStruct = {
             from: `"Auth System" <${process.env.NodeMailerEmail}>`, // sender address
             to: email,
             subject: "Reset Password.", // Subject line
-            html: `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
-            text: `<p> Hello ${userExist.name}, Please verify your email using the link <a href="http://localhost:${process.env.port}/resetPassword.html?token=${token}"> reset your password. </a></p>`,
+            html: `<p> Hello ${userExist.name}, Please verify your email using the link <a href="${resetEmail}"> reset your password. </a></p>`,
+            text: `<p> Hello ${userExist.name}, Please verify your email using the link <a href="${resetEmail}"> reset your password. </a></p>`,
         };
 
         transporter.sendMail(emailStruct, (error, info) => {
             if (error) {
-                console.log(error);
+                console.error(error);
                 return res.status(400).send(`Can not sent the email at this moment ${error}`)
             } else {
                 console.log(`Email has been sent:- ${info.response}`);
@@ -147,12 +148,12 @@ router.post("/forgotPassword", async (req, res) => {
 router.post("/resetPassword", async (req, res) => {
     try {
         const { password } = req.body;
-        const { paramToken } = req.query.token;
+        const token = req.query.token;
 
-        console.log(req);
+        console.log(token);
         const userExist = await User.findOne({
             where: {
-                token: paramToken
+                token: token
             }
         });
 
@@ -164,7 +165,7 @@ router.post("/resetPassword", async (req, res) => {
 
         await User.update({ password: newPassword, token: '' }, {
             where: {
-                token: paramToken
+                token: token
             }
         });
         res.status(200).send(`${userExist.name}, password has been successfully changes `);
